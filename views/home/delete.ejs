@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= create && create._id ? 'Editar Gráfico' : 'Criar Gráfico' %></title>
+  <link rel="stylesheet" href="/css/home/delete.css">
+</head>
+<body>
+
+  <nav>
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="/home/create">Criar gráfico</a></li>
+      <li><a href="/home/view">Visualizar gráficos</a></li>
+      <li><a href="/home/graphics">Gráficos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    
+    <form action="<%= create && create._id ? '/home/deletegraphics/' + create._id : '/home/create' %>" method="POST">
+      <h1>Você tem certeza que deseja excluir esse grafico?</h1>
+      <button type="submit" class="delete"><%= create && create._id ? 'Confirmar' : 'Criar Gráfico' %></button>
+    </form>
+  </main>
+
+</body>
+</html>

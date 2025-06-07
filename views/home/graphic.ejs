@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Analysis</title>
+  <link rel="stylesheet" href="/css/home/graphic.css">
+</head>
+<body>
+
+  <nav>
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="/home/create">Criar gráfico</a></li>
+      <li><a href="/home/view">Visualizar gráficos</a></li>
+      <li><a href="/home/graphics">Graficos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+  <ul>
+    <% create.forEach(create => { %>
+      <li>
+        <h1><%= create.title %></h1>
+        <div class="actions">
+          <a href="/home/editgraphics/<%= create._id %>">Editar</a>
+          <a href="/home/deletegraphics/<%= create._id %>" class="delete">Excluir</a>
+        </div>
+      </li>
+    <% }) %>
+  </ul>
+</main>
+
+
+</body>
+</html>

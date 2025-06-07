@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Analysis</title>
+  <link rel="stylesheet" href="/css/home/view.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <nav>
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="/home/create">Criar gráfico</a></li>
+      <li><a href="/home/view">Visualizar gráficos</a></li>
+      <li><a href="/home/graphics">Graficos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <% graphic.forEach(function(g, index) { %>
+      <div class="chart-container">
+        <canvas id="graphic-<%= index %>"></canvas>
+      </div>
+    <% }); %>
+  </main>
+
+  <script>
+    const graphicData = <%- JSON.stringify(graphic) %>;
+
+    graphicData.forEach((g, index) => {
+      const ctx = document.getElementById(`graphic-${index}`).getContext('2d');
+
+      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, 'rgba(0, 188, 212, 0.8)');
+      gradient.addColorStop(1, 'rgba(0, 150, 136, 0.2)');
+
+      new Chart(ctx, {
+        type: g.type || 'bar',
+        data: {
+          labels: g.labels,
+          datasets: [{
+            label: g.datasetLabel,
+            data: g.values,
+            backgroundColor: gradient,
+            borderColor: 'rgba(0, 188, 212, 1)',
+            borderWidth: 2,
+            borderRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: '#e0e0e0',
+                font: {
+                  size: 10
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: '#e0e0e0',
+                font: {
+                  size: 9
+                }
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            },
+            x: {
+              ticks: {
+                color: '#e0e0e0',
+                font: {
+                  size: 9
+                }
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            }
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

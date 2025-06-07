@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= create && create._id ? 'Editar Gráfico' : 'Criar Gráfico' %></title>
+  <link rel="stylesheet" href="/css/home/create.css">
+</head>
+<body>
+
+  <nav>
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="/home/create">Criar gráfico</a></li>
+      <li><a href="/home/view">Visualizar gráficos</a></li>
+      <li><a href="/home/graphics">Gráficos</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="form-wrapper">
+      <% if (typeof errorMessage !== 'undefined') { %>
+        <div class="error-message"><%= errorMessage %></div>
+      <% } %>
+    <form action="<%= create && create._id ? '/home/editgraphics/' + create._id : '/home/create' %>" method="POST">
+      <label for="title">Título do gráfico *</label>
+      <input type="text" id="title" name="title" placeholder="Ex: Vendas Mensais" value="<%= create.title || '' %>" required />
+
+      <label for="type">Tipo de gráfico *</label>
+      <select id="type" name="type" required>
+        <option value="" disabled <%= !create.type ? 'selected' : '' %>>Selecione o tipo</option>
+        <option value="bar" <%= create.type === 'bar' ? 'selected' : '' %>>Barra</option>
+        <option value="line" <%= create.type === 'line' ? 'selected' : '' %>>Linha</option>
+        <option value="pie" <%= create.type === 'pie' ? 'selected' : '' %>>Pizza</option>
+        <option value="doughnut" <%= create.type === 'doughnut' ? 'selected' : '' %>>Rosca</option>
+        <option value="radar" <%= create.type === 'radar' ? 'selected' : '' %>>Radar</option>
+      </select>
+
+      <label for="labels">Labels (rótulos) *</label>
+      <input type="text" id="labels" name="labels" placeholder="Ex: Janeiro,Fevereiro,Março" value="<%= create.labels ? create.labels.join(',') : '' %>" required />
+      <small>Digite os rótulos separados por vírgula</small>
+
+      <label for="values">Valores dos dados *</label>
+      <input type="text" id="values" name="values" placeholder="Ex: 10,20,30" value="<%= create.values ? create.values.join(',') : '' %>" required />
+      <small>Digite os valores separados por vírgula (números)</small>
+
+      <label for="datasetLabel">Nome do conjunto de dados *</label>
+      <input type="text" id="datasetLabel" name="datasetLabel" placeholder="Ex: Vendas" value="<%= create.datasetLabel || '' %>" required />
+
+      <button type="submit"><%= create && create._id ? 'Atualizar Gráfico' : 'Criar Gráfico' %></button>
+    </form>
+  </main>
+
+</body>
+</html>
